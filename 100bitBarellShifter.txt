@@ -1,0 +1,43 @@
+module top_module(
+    input clk,
+    input load,
+    input [1:0] ena,
+    input [99:0] data,
+    output reg [99:0] q); 
+    reg [99:0] tempr;
+    reg [99:0]templ;
+    reg l,r;
+    integer i, j;
+    always@(posedge clk)
+        begin
+            if( load)
+                q=data;
+ 
+             else 
+              begin
+                    if(ena== 2'b01) 
+                      begin  
+                     tempr=q;
+                          r=q[0];
+                        
+                          q=q>>1;
+                  
+                          q[99]=r;
+                          end   
+                        else if(ena==2'b10) 
+                                 begin
+                                templ=q;
+                                     l=q[99];    
+                             ;  
+                                     q=q<<1;
+                                     q[0]=l;
+                                 end// of l
+                    else if (ena==2'b11 || ena==2'b00)
+                                q=q;
+                                
+                            
+                end//~load
+            
+        end   //alwaya 
+
+endmodule
